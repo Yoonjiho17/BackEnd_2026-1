@@ -53,7 +53,7 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public void deleteMember(Integer id) {
+    public boolean deleteMember(Integer id) {
         if (!memberRepository.existsById(id)) {
             throw new ResourceNotFoundException("사용자를 찾을 수 없습니다.");
         }
@@ -64,5 +64,6 @@ public class MemberService {
         }
 
         memberRepository.deleteById(id);
+        return hasArticles;
     }
 }

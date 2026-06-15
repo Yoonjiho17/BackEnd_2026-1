@@ -47,7 +47,7 @@ public class BoardService {
         return null;
     }
 
-    public void deleteBoard(Integer id) {
+    public boolean deleteBoard(Integer id) {
         if (!boardRepository.existsById(id)) {
             throw new ResourceNotFoundException("게시판을 찾을 수 없습니다.");
         }
@@ -58,5 +58,6 @@ public class BoardService {
         }
 
         boardRepository.deleteById(id);
+        return hasArticles;
     }
 }
