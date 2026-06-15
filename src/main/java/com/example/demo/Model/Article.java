@@ -9,6 +9,8 @@ public class Article {
     private LocalDateTime createdAt;
     private String content;
 
+    public Article() {}
+
     public Article(Integer id, String title, String content) {
         this.id = id;
         this.title = title;
