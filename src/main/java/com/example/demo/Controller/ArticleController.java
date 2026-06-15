@@ -4,15 +4,25 @@ import com.example.demo.Model.Article;
 import com.example.demo.Service.ArticleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@RestController
+@Controller
 public class ArticleController {
 
     private final ArticleService articleService;
 
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
+    }
+
+    @GetMapping("/posts")
+    public String getPostsView(Model model) {
+        model.addAttribute("boardName", "자유게시판");
+        model.addAttribute("articles", articleService.getAllArticles());
+        return "posts";
     }
 
     @GetMapping("/article/{id}")

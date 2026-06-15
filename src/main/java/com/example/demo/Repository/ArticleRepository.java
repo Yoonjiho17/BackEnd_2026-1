@@ -4,10 +4,16 @@ import com.example.demo.Model.Article;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 @Repository
 public class ArticleRepository {
     private final Map<Integer, Article> articleMap = new HashMap<>();
+
+    public List<Article> findAll() {
+        return new ArrayList<>(articleMap.values());
+    }
 
     public Article save(Article article) {
         articleMap.put(article.getId(), article);
