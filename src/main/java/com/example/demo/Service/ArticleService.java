@@ -19,6 +19,10 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
+    public List<Article> getArticlesByBoardId(Integer boardId) {
+        return articleRepository.findByBoardId(boardId);
+    }
+
     public Article getArticle(Integer id) {
         return articleRepository.findById(id);
     }

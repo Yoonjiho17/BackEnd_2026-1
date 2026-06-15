@@ -27,7 +27,10 @@ public class ArticleController {
 
     @GetMapping("/articles")
     @ResponseBody
-    public List<Article> getAllArticles() {
+    public List<Article> getArticles(@RequestParam(value = "boardId", required = false) Integer boardId) {
+        if (boardId != null) {
+            return articleService.getArticlesByBoardId(boardId);
+        }
         return articleService.getAllArticles();
     }
 

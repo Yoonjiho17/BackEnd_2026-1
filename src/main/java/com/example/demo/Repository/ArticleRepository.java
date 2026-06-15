@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Repository
 public class ArticleRepository {
@@ -13,6 +14,11 @@ public class ArticleRepository {
 
     public List<Article> findAll() {
         return new ArrayList<>(articleMap.values());
+    }
+
+    public List<Article> findByBoardId(Integer boardId) {
+        return articleMap.values().stream().filter(article ->
+                boardId.equals(article.getBoardId())).collect(Collectors.toList());
     }
 
     public Article save(Article article) {
