@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Model.Member;
 import com.example.demo.Service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<Member> postMember(@RequestBody Member member) {
+    public ResponseEntity<Member> postMember(@Valid @RequestBody Member member) {
         Member created = memberService.createMember(member);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }

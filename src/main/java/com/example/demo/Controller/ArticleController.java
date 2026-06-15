@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Model.Article;
 import com.example.demo.Service.ArticleService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,7 @@ public class ArticleController {
 
     @PostMapping("/article")
     @ResponseBody
-    public ResponseEntity<Article> postArticle(@RequestBody Article article) {
+    public ResponseEntity<Article> postArticle(@Valid @RequestBody Article article) {
         Article created = articleService.postArticle(article);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
@@ -51,7 +52,7 @@ public class ArticleController {
     @PutMapping("/article/{id}")
     @ResponseBody
     public ResponseEntity<Article> putArticle(@PathVariable Integer id, @RequestBody Article update) {
-        Article updated = articleService.putArticle(id, update);
+        Article updated = articleService.updateArticle(id, update);
         return ResponseEntity.ok(updated);
     }
 

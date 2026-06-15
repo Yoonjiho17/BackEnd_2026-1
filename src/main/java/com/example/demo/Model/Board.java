@@ -1,8 +1,12 @@
 package com.example.demo.Model;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Board {
     private Integer id;
+    @NotBlank(message = "게시판 이름은 필수 입력 값입니다.")
     private String name;
+    @NotBlank(message = "게시판 설명은 필수 입력 값입니다.")
     private String description;
 
     public Board() {}

@@ -40,6 +40,12 @@ public class ArticleService {
     }
 
     public Article postArticle(Article article) {
+        if (!memberRepository.existsById(article.getMemberId())) {
+            throw new InvalidReferenceException("존재하지 않는 사용자 입니다.");
+        }
+        if (!boardRepository.existsById((article.getBoardId()))) {
+            throw new InvalidReferenceException("존재하지 않는 게시판입니다.");
+        }
         idCount++;
         article.setId(idCount);
         article.setCreatedAt(LocalDateTime.now());

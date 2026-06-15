@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Model.Board;
 import com.example.demo.Service.BoardService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class BoardController {
     }
 
     @PostMapping
-    public ResponseEntity<Board> postBoard(@RequestBody Board board) {
+    public ResponseEntity<Board> postBoard(@Valid @RequestBody Board board) {
         Board created = boardService.createBoard(board);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
