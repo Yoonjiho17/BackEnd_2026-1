@@ -25,7 +25,14 @@ public class ArticleController {
         return "posts";
     }
 
+    @GetMapping("/articles")
+    @ResponseBody
+    public List<Article> getAllArticles() {
+        return articleService.getAllArticles();
+    }
+
     @GetMapping("/article/{id}")
+    @ResponseBody
     public ResponseEntity<Article> getArticle(@PathVariable Integer id) {
         Article article = articleService.getArticle(id);
         if (article == null) {
@@ -35,12 +42,14 @@ public class ArticleController {
     }
 
     @PostMapping("/article")
+    @ResponseBody
     public ResponseEntity<Article> postArticle(@RequestBody Article article) {
         Article created = articleService.postArticle(article);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/article/{id}")
+    @ResponseBody
     public ResponseEntity<Article> putArticle(@PathVariable Integer id, @RequestBody Article update) {
         Article updated = articleService.putArticle(id, update);
         if (updated == null) {
@@ -50,6 +59,7 @@ public class ArticleController {
     }
 
     @DeleteMapping("/article/{id}")
+    @ResponseBody
     public ResponseEntity<Void> deleteArticle(@PathVariable Integer id) {
         if (!articleService.deleteArticle(id)) {
             return ResponseEntity.notFound().build();
