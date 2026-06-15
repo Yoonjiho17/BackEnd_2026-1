@@ -1,8 +1,11 @@
 package com.example.demo.Service;
 
+import com.example.demo.Exception.InvalidReferenceException;
 import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.Model.Article;
 import com.example.demo.Repository.ArticleRepository;
+import com.example.demo.Repository.BoardRepository;
+import com.example.demo.Repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,10 +13,14 @@ import java.util.List;
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
     private int idCount = 0;
 
-    public ArticleService(ArticleRepository articleRepository) {
+    public ArticleService(ArticleRepository articleRepository, MemberRepository memberRepository, BoardRepository boardRepository) {
         this.articleRepository = articleRepository;
+        this.memberRepository = memberRepository;
+        this.boardRepository = boardRepository;
     }
 
     public List<Article> getAllArticles() {
@@ -39,14 +46,21 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public Article putArticle(Integer id, Article update) {
+    public Article updateArticle(Integer id, Article updateData) {
         Article article = articleRepository.findById(id);
         if (article == null) {
-            return null;
+            throw new ResourceNotFoundException("게시물을 찾을 수 없습니다.");
         }
-        article.setTitle(update.getTitle());
-        article.setContent(update.getContent());
-        article.setAuthor(update.getAuthor());
+        if (!memberRepository.existsById(updateData.getMemberId())) {
+            throw new InvalidReferenceException("존재하지 않는 사용자를 참조하고 있습니다.");
+        }
+        if (!boardRepository.existsById(updateData.getBoardId())) {
+            throw new InvalidReferenceException("존재하지 않는 게시판을 참조하고 있습니다.");
+        }
+        article.setTitle(updateData.getTitle());
+        article.setContent(updateData.getContent());
+        article.setBoardId(updateData.getBoardId());
+        article.setMemberId(updateData.getMemberId());
         return articleRepository.save(article);
     }
 

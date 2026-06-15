@@ -6,7 +6,7 @@ public class Article {
     private Integer id;
     private Integer boardId;
     private String title;
-    private String author;
+    private Integer memberId;
     private LocalDateTime createdAt;
     private String content;
 
@@ -16,7 +16,7 @@ public class Article {
         this.id = id;
         this.boardId = boardId;
         this.title = title;
-        this.author = author;
+        this.memberId = memberId;
         this.createdAt = LocalDateTime.now();
         this.content = content;
     }
@@ -38,11 +38,11 @@ public class Article {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public Integer getMemberId() {
+        return memberId;
     }
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Exception.DuplicateEmailException;
 import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.Model.Member;
 import com.example.demo.Repository.MemberRepository;
@@ -35,12 +36,17 @@ public class MemberService {
 
     public Member updateMember(Integer id, Member updateData) {
         Member member = memberRepository.findById(id);
-        if (member != null) {
-            member.setName(updateData.getName());
-            member.setEmail(updateData.getEmail());
-            return memberRepository.save(member);
+        if (member == null) {
+            throw new ResourceNotFoundException("사용자를 찾을 수 없습니다.");
         }
-        return null;
+        boolean emailExists = memberRepository.findAll().stream().anyMatch(m ->
+                m.getEmail().equals(updateData.getEmail()) && !m.getId().equals(id));
+        if (emailExists) {
+            throw new DuplicateEmailException("이미 사용 중인 이메일 입니다.");
+        }
+        member.setName(updateData.getName());
+        member.setEmail(updateData.getEmail());
+        return memberRepository.save(member);
     }
 
     public boolean deleteMember(Integer id) {
