@@ -44,6 +44,12 @@ public class GlobalExceptionHandler {
         return createErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    // 삭제 예외 시 400
+    @ExceptionHandler(DeleteRestrictionException.class)
+    public ResponseEntity<Map<String, String>> handleDeleteRestriction(DeleteRestrictionException ex) {
+        return createErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
     private ResponseEntity<Map<String, String>> createErrorResponse(HttpStatus status, String message) {
         Map<String, String> response = new HashMap<>();
         response.put("status", String.valueOf(status.value()));
