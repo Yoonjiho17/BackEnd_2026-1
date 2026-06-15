@@ -38,9 +38,6 @@ public class ArticleController {
     @ResponseBody
     public ResponseEntity<Article> getArticle(@PathVariable Integer id) {
         Article article = articleService.getArticle(id);
-        if (article == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(article);
     }
 
@@ -55,9 +52,6 @@ public class ArticleController {
     @ResponseBody
     public ResponseEntity<Article> putArticle(@PathVariable Integer id, @RequestBody Article update) {
         Article updated = articleService.putArticle(id, update);
-        if (updated == null) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(updated);
     }
 

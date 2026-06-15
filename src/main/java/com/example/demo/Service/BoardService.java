@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.Model.Board;
 import com.example.demo.Repository.BoardRepository;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,11 @@ public class BoardService {
     }
 
     public Board getBoardById(Integer id) {
-        return boardRepository.findById(id);
+        Board board = boardRepository.findById(id);
+        if (board == null) {
+            throw new ResourceNotFoundException("해당 ID의 게시판을 찾을 수 없습니다.");
+        }
+        return board;
     }
 
     public Board createBoard(Board board) {

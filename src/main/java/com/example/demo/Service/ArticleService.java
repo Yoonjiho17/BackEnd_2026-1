@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.Model.Article;
 import com.example.demo.Repository.ArticleRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,11 @@ public class ArticleService {
     }
 
     public Article getArticle(Integer id) {
-        return articleRepository.findById(id);
+        Article article = articleRepository.findById(id);
+        if (article == null) {
+            throw new ResourceNotFoundException("해당 ID의 게시물을 찾을 수 없습니다.");
+        }
+        return article;
     }
 
     public Article postArticle(Article article) {

@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.Model.Member;
 import com.example.demo.Repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,11 @@ public class MemberService {
     }
 
     public Member getMemberById(Integer id) {
-        return memberRepository.findById(id);
+        Member member = memberRepository.findById(id);
+        if (member == null) {
+            throw new ResourceNotFoundException("해당 ID의 사용자를 찾을 수 없습니다.");
+        }
+        return member;
     }
 
     public Member createMember(Member member) {
