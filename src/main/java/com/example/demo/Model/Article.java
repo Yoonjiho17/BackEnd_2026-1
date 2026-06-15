@@ -1,6 +1,4 @@
-package com.example.demo;
-
-import java.util.Map;
+package com.example.demo.Model;
 
 public class Article {
     private Integer id;

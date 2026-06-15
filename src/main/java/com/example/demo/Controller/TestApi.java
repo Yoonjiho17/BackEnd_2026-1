@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Controller;
 
 // 객체를 json으로 만들기 위한 클래스
 public class TestApi {
